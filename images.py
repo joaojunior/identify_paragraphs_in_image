@@ -75,13 +75,9 @@ def get_lines_with_color(image, color=255):
     return lines
 
 
-def get_blank_lines(image):
-    return get_lines_with_color(image, color=255)
-
-
 def identify_paragraphs_in_image(image):
     image = remove_boundary(image)
-    blank_lines = get_blank_lines(image)
+    blank_lines = get_lines_with_color(image)
     y_size, x_size = image.shape
     min_space = y_size
     max_space = 0
