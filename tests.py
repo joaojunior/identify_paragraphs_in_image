@@ -2,7 +2,8 @@ import unittest
 
 import numpy as np
 
-from images import remove_boundary, get_lines_with_color
+from images import (remove_boundary, get_lines_with_color,
+                    identify_paragraphs_in_image)
 
 
 class TestImage(unittest.TestCase):
@@ -19,6 +20,9 @@ class TestImage(unittest.TestCase):
         expected = [0, 2]
         self.assertEqual(expected, get_lines_with_color(self.image_input))
 
+    def test_have_one_paragraph(self):
+        paragraphs, image = identify_paragraphs_in_image(self.image_input)
+        self.assertEqual(1, paragraphs)
 
 if __name__ == '__main__':
     unittest.main()
