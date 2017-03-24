@@ -78,22 +78,10 @@ def get_lines_with_color(image, color=255):
 def identify_paragraphs_in_image(image, func_average=np.average):
     black = (0, 0, 0)
     image = remove_boundary(image)
-    blank_lines = get_lines_with_color(image)
+    idx_min_max_blank_lines = _idx_min_max_blank_lines(image)
     y_size, x_size = image.shape
-    min_space = y_size
-    max_space = 0
-    idx_min_max_blank_lines = {}
-    sizes = []
-    for k, g in groupby(enumerate(blank_lines), lambda x: x[1]-x[0]):
-        line = list(map(itemgetter(1), g))
-        size = line[-1] - line[0] + 1
-        sizes.append(size)
-        idx_min_max_blank_lines[(line[0], line[-1])] = size
-        if(size < min_space):
-            min_space = size
-        if(size > max_space):
-            max_space = size
     number_paragraphs = 0
+    sizes = idx_min_max_blank_lines.values()
     for key, size in idx_min_max_blank_lines.items():
         idx_min = key[0]
         idx_max = key[1]
@@ -102,3 +90,15 @@ def identify_paragraphs_in_image(image, func_average=np.average):
             cv2.line(image, (0, idx_line), (x_size, idx_line), black)
             number_paragraphs += 1
     return number_paragraphs+1, image
+
+
+def _idx_min_max_blank_lines(image):
+    blank_lines = get_lines_with_color(image)
+    idx_min_max_blank_lines = {}
+    sizes = []
+    for k, g in groupby(enumerate(blank_lines), lambda x: x[1]-x[0]):
+        line = list(map(itemgetter(1), g))
+        size = line[-1] - line[0] + 1
+        sizes.append(size)
+        idx_min_max_blank_lines[(line[0], line[-1])] = size
+    return idx_min_max_blank_lines
