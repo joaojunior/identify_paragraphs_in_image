@@ -2,8 +2,8 @@ import unittest
 
 import numpy as np
 
-from images import (remove_boundary, get_lines_with_color,
-                    identify_paragraphs_in_image)
+from images import (get_lines_with_color, identify_paragraphs_in_image,
+                    remove_boundary)
 
 
 class TestImage(unittest.TestCase):

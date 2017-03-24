@@ -4,7 +4,6 @@ import cv2
 
 from images import identify_paragraphs_in_image
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser = argparse.ArgumentParser(description='')

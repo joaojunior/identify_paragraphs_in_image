@@ -1,9 +1,9 @@
 from itertools import groupby
 from operator import itemgetter
 
+import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
-import cv2
 
 
 def text_to_image(text, file_name, background=(255, 255, 255),
