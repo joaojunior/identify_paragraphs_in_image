@@ -82,10 +82,11 @@ def identify_paragraphs_in_image(image, func_average=np.average):
     y_size, x_size = image.shape
     number_paragraphs = 0
     sizes = idx_min_max_blank_lines.values()
+    sizes = list(set(sizes))
     for key, size in idx_min_max_blank_lines.items():
         idx_min = key[0]
         idx_max = key[1]
-        if (size >= func_average(list(set(sizes)))):
+        if (size >= func_average(sizes)):
             idx_line = int((idx_min+idx_max) / 2)
             cv2.line(image, (0, idx_line), (x_size, idx_line), black)
             number_paragraphs += 1
