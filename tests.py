@@ -24,5 +24,13 @@ class TestImage(unittest.TestCase):
         paragraphs, image = identify_paragraphs_in_image(self.image_input)
         self.assertEqual(1, paragraphs)
 
+    def test_have_two_paragraph(self):
+        image = np.ones((3, 5), np.uint8)
+        image = image * 255
+        image[0, 2] = 0
+        image[2, 3] = 0
+        paragraphs, image = identify_paragraphs_in_image(image)
+        self.assertEqual(2, paragraphs)
+
 if __name__ == '__main__':
     unittest.main()

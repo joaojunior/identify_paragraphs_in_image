@@ -85,7 +85,7 @@ def identify_paragraphs_in_image(image):
     sizes = []
     for k, g in groupby(enumerate(blank_lines), lambda x: x[1]-x[0]):
         line = list(map(itemgetter(1), g))
-        size = line[-1] - line[0]
+        size = line[-1] - line[0] + 1
         sizes.append(size)
         idx_min_max_blank_lines.append((line[0], line[-1]))
         if(size < min_space):
@@ -94,7 +94,7 @@ def identify_paragraphs_in_image(image):
             max_space = size
     number_paragraphs = 0
     for idx_min, idx_max in idx_min_max_blank_lines:
-        if idx_max - idx_min > np.percentile(list(set(sizes)), 50):
+        if (idx_max - idx_min + 1 >= np.percentile(list(set(sizes)), 50)):
             line = int((idx_min+idx_max) / 2)
             cv2.line(image, (0, line), (x_size, line), (0, 0, 0))
             number_paragraphs += 1
