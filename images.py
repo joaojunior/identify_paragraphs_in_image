@@ -64,7 +64,7 @@ def remove_boundary(image, background_color=255):
     return image
 
 
-def get_lines_with_color(image, color):
+def get_lines_with_color(image, color=255):
     y_size, x_size = image.shape
     lines = []
     for row in range(y_size):

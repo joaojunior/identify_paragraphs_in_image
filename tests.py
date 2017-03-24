@@ -2,16 +2,22 @@ import unittest
 
 import numpy as np
 
-from images import remove_boundary
+from images import remove_boundary, get_lines_with_color
 
 
 class TestImage(unittest.TestCase):
+    def setUp(self):
+        self.image_input = np.ones((3, 5), np.uint8)
+        self.image_input = self.image_input * 255
+        self.image_input[1, 2] = 0
+
     def test_remove_boundary(self):
-        image_input = np.ones((3, 5), np.uint8)
-        image_input = image_input * 255
-        image_input[1, 2] = 0
         expected = np.zeros((1, 1), np.uint8)
-        self.assertEqual(expected, remove_boundary(image_input))
+        self.assertEqual(expected, remove_boundary(self.image_input))
+
+    def test_lines_0_and_2_have_color_white(self):
+        expected = [0, 2]
+        self.assertEqual(expected, get_lines_with_color(self.image_input))
 
 
 if __name__ == '__main__':
