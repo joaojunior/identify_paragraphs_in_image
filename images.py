@@ -75,7 +75,7 @@ def get_lines_with_color(image, color=255):
     return lines
 
 
-def identify_paragraphs_in_image(image):
+def identify_paragraphs_in_image(image, func_average=np.average):
     image = remove_boundary(image)
     blank_lines = get_lines_with_color(image)
     y_size, x_size = image.shape
@@ -94,7 +94,7 @@ def identify_paragraphs_in_image(image):
             max_space = size
     number_paragraphs = 0
     for idx_min, idx_max in idx_min_max_blank_lines:
-        if (idx_max - idx_min + 1 >= np.percentile(list(set(sizes)), 50)):
+        if (idx_max - idx_min + 1 >= func_average(list(set(sizes)))):
             line = int((idx_min+idx_max) / 2)
             cv2.line(image, (0, line), (x_size, line), (0, 0, 0))
             number_paragraphs += 1
