@@ -3,6 +3,7 @@ from operator import itemgetter
 
 import cv2
 import numpy as np
+from scipy.stats.mstats import gmean
 from PIL import Image, ImageDraw, ImageFont
 
 
@@ -75,7 +76,7 @@ def get_lines_with_color(image, color=255):
     return lines
 
 
-def identify_paragraphs_in_image(image, func_average=np.average):
+def identify_paragraphs_in_image(image, func_average=gmean):
     black = (0, 0, 0)
     image = remove_boundary(image)
     idx_min_max_blank_lines = _idx_min_max_blank_lines(image)
