@@ -6,7 +6,6 @@ from images import identify_paragraphs_in_image
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser = argparse.ArgumentParser(description='')
     parser.add_argument(dest="file_name_input", metavar="FILE",
                         help="image to read")
     parser.add_argument("--dest", dest="file_name_output",
